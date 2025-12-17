@@ -73,13 +73,13 @@ P = K \cdot e^{-r_d T} \cdot N(-d_2) - S \cdot e^{-r_f T} \cdot N(-d_1)
 
 #### Where
 
-* `S` – Spot FX rate
-* `K` – Strike price
-* `T` – Time to expiry (in years)
-* `r_d` – Domestic risk-free rate
-* `r_f` – Foreign risk-free rate
-* `σ` – Implied volatility
-* `N(·)` – Cumulative standard normal distribution
+* `S`:    Spot FX rate
+* `K`:    Strike price
+* `T`:    Time to expiry (in years)
+* `r_d`:  Domestic risk-free rate
+* `r_f`:  Foreign risk-free rate
+* `σ`:    Implied volatility
+* `N(·)`: Cumulative standard normal distribution
 
 The auxiliary terms are defined as:
 
