@@ -1,20 +1,7 @@
-Below is a **fully rewritten, clean, GitHub-safe version of your README**, with:
-
-* ✅ **All math rendering fixed** (using fenced `math` blocks)
-* ✅ Clear structure and consistent tone
-* ✅ Professional, interview-ready wording
-* ✅ No Markdown edge cases that break GitHub rendering
-* ✅ Your original content preserved, clarified, and polished
-
-You can **copy–paste this directly** into `README.md`.
-
----
 
 # FX Options Portfolio Risk Aggregator
 
-A Python application for pricing and aggregating **FX options portfolios** using the **Garman–Kohlhagen (Black–Scholes for FX)** model.
-The system integrates quantitative finance, robust data validation, and multi-currency aggregation with production-quality software design.
-
+A small Python application for pricing and aggregating FX options portfolios using the Black-Scholes model. This system integrates quantitative modelling, software engineering and data validation along with multi currncy handling
 ---
 
 ## Overview
@@ -226,7 +213,7 @@ The generated Excel file contains two sheets:
 
 ## Input File Format
 
-The input Excel file must contain:
+The input Excel file should contain:
 
 * TradeID
 * Underlying
@@ -246,7 +233,7 @@ The input Excel file must contain:
 
 Unit tests cover:
 
-* Black–Scholes pricing accuracy (ATM, ITM, OTM)
+* Black–Scholes pricing accuracy 
 * Put–call parity
 * Delta and Vega correctness
 * Trade validation rules
@@ -259,62 +246,84 @@ Tests are designed to validate both **quantitative correctness** and **system ro
 
 ## Design Principles
 
-### Separation of Concerns
+### 1. **Separation of Concerns**
+Each service has a single, defined responsibility:
+- Data loading is isolated from validation
+- Pricing logic is independent of I/O
+- Currency conversion is handled in aggregation layer
 
-Each service has a single, well-defined responsibility.
+### 2. **Type Safety**
+- Full type hints throughout
+- Pydantic models ensure integrity of data at each pipeline stage
+- Catches errors at validation time
 
-### Type Safety
+### 3. **Fail Fast Validation**
+- Comprehensive validation with clear error messages
+- Business logic checks
+- Range validation
 
-* Full type hints throughout
-* Pydantic enforces correctness at data boundaries
+### 4. **Multi-Currency Awareness**
+- FX conversion at aggregation stage
+- Prevents mixing currencies in portfolio totals
+- Clear labelling of reporting currency in outputs
+- Accurate representation of cross currency portfolios
 
-### Fail-Fast Validation
+### 5. **Testability**
+- Pure functions for pricing calculations
+- Services accept dependency injection
+- Comprehensive unit test coverage
 
-* Structural and business-logic validation
-* Clear error messages
+### 6. **Data Transformations**
+```
+RawTrade → ValidatedTrade → PricedTrade → Converted → Output
+```
+Each stage represents a clear transformation with explicit types.
 
-### Multi-Currency Awareness
-
-* No mixing of currencies in aggregated results
-* Explicit reporting currency
-
-### Testability
-
-* Pure pricing functions
-* Dependency injection for services
-* High unit-test coverage
-
+### 7. **Output**
+- Multi sheet Excel files with formatted results
+- Auto adjusted column widths
+- Currency-labeled portfolio summaries
 ---
 
 ## Assumptions
 
 ### Market Assumptions
+- **Time to Expiry:** Specified directly in years 
+- **Rates:** Continuously compounded risk-free rates (decimal format)
+- **Volatility:** Implied volatility (decimal format)
+- **Notional Currency:** Either USD or JPY depending on the currency pair
+- **Reporting Currency:** Default is USD (can configure in config.py)
 
-* European options
-* Continuously compounded rates
-* Constant volatility and interest rates
-* No transaction costs or arbitrage
+### Pricing Assumptions
+
+- European style options
+- No transaction costs
+- No bid spreads
+- Continuous trading and no arbitrage opportunities
+- Log normal distribution of spot rates
+- Constant volatility and interest rates
 
 ### Currency Conversion
 
-* Spot rates used for conversion
-* Mid-market rates
-* No bid/ask spreads
+- Spot rates are used for currency conversion (no forward adjustment)
+- Conversion assumes mid market rates with no spreads
+- For USD/JPY trades:
+  - JPY notional → USD: divide by spot
+  - USD notional → JPY: multiply by spot
+- All portfolio aggregations are in reporting currency
 
-### Data
+### Data Assumptions
 
 * Market data is observable and reliable
 * No counterparty or credit risk
 
----
+## Key Implementation Details
 
-## Summary
-
-This project demonstrates:
-
-* Correct quantitative finance implementation
-* Production-quality Python engineering
-* Strong validation and testing discipline
-* Robust handling of multi-currency portfolios
+### Currency Conversion in AggregationService
+The `AggregationService.aggregate_portfolio()` method performs the following steps:
+1. **Iterate through priced trades** (each in its own notional currency)
+2. **Apply conversion factor** based on currency pair and reporting currency
+3. **Convert PV, Delta, and Vega** to reporting currency
+4. **Sum converted values** across all trades
 
 
