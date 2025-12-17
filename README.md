@@ -39,11 +39,11 @@ The application follows a **Service-Oriented Architecture**, ensuring a clear se
 
 #### 2. Services
 
-* **DataLoaderService** – Reads Excel files and parses raw trade data
-* **ValidationService** – Applies structural and business-logic validation
-* **PricingEngineService** – Implements FX Black–Scholes pricing
-* **AggregationService** – Performs currency conversion and aggregation
-* **OutputWriterService** – Writes formatted Excel outputs
+* **DataLoaderService**: Reads Excel files and parses raw trade data
+* **ValidationService**: Applies structural and business-logic validation
+* **PricingEngineService**: Implements FX Black–Scholes pricing
+* **AggregationService**: Performs currency conversion and aggregation
+* **OutputWriterService**: Writes formatted Excel outputs
 
 #### 3. Configuration (`config.py`)
 
