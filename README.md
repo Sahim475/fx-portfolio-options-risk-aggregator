@@ -42,8 +42,9 @@ The application follows a **Service Oriented Architecture** with clear separatio
 The pricing engine implements the Garman Kohlhagen model:
 
 **Call Option PV:**
-```math
+$$
 C = S \cdot e^{-r_f T} \cdot N(d_1) - K \cdot e^{-r_d T} \cdot N(d_2)
+$$
 
 
 **Put Option PV:**
