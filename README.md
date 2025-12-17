@@ -174,7 +174,7 @@ pip install -r requirements.txt
 python main.py fx_trades__1_.xlsx
 ```
 
-Specify a custom output file:
+Or specify a custom output file:
 
 ```bash
 python main.py fx_trades__1_.xlsx -o trade_results.xlsx
