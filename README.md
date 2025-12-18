@@ -18,7 +18,7 @@ The FX Options Portfolio Risk Aggregator:
   * Vega
 * Converts all metrics into a **unified reporting currency**
 * Aggregates results at the portfolio level
-* Exports detailed trade-level and portfolio-level results to Excel
+* Exports detailed trade level and portfolio level results to Excel
 
 ---
 
@@ -57,7 +57,7 @@ The application follows a **Service-Oriented Architecture**, ensuring a clear se
 
 ### Black–Scholes for FX Options
 
-The pricing engine implements the **Garman–Kohlhagen** model.
+The pricing engine implements the **Garman Kohlhagen** model.
 
 #### Call Option Present Value
 
@@ -117,7 +117,7 @@ where `n(·)` is the **standard normal probability density function**.
 
 ---
 
-## Multi-Currency Handling
+## Multi Currency Handling
 
 The system supports portfolios containing trades with different **notional currencies** (e.g. USD, JPY).
 
